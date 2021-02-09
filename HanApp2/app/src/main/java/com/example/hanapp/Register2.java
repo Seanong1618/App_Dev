@@ -1,7 +1,9 @@
 package com.example.hanapp;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +44,10 @@ public class Register2 extends AppCompatActivity {
         Password =  findViewById(R.id.signup_establishmentpassword);
         ConfirmPassword =  findViewById(R.id.signup_establishmentconfirmpassword);
         Register = findViewById(R.id.register2);
-
+        SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("EstablishmentId", EstablishmentId_holder);
+        editor.apply();
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +107,9 @@ public class Register2 extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-
+                    Toast.makeText(Register2.this, "Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 //wala pa
 
             }

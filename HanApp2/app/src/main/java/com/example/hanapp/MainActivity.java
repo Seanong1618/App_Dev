@@ -118,11 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                 } else if (httpmessage.equals("Establishment")){
-
+                    SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("Username_login_Est", UsernameHolder);
+                    editor.putString("Password_login_Est", PasswordHolder);
+                    editor.apply();
                     Intent intent = new Intent(getApplicationContext(),home2.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(),"Congatulations you are already logged in...",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),"as an Establishment Admin...",Toast.LENGTH_SHORT).show();
                 }else{
 
                     Toast.makeText(MainActivity.this,httpmessage,Toast.LENGTH_LONG).show();
