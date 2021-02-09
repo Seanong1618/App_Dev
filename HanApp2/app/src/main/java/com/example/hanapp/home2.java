@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,8 +34,8 @@ public class home2 extends AppCompatActivity {
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String finalResult ;
-    String firstname="",middlename="",lastname="",contactnumber="",temp="",date_time="";
-    String response;
+    String firstname,middlename,lastname,contactnumber,temp,date_time;
+    TextView name;
     Button show;
 
     @Override
@@ -44,6 +45,7 @@ public class home2 extends AppCompatActivity {
         //Hide the Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
+        name = findViewById(R.id.name);
         //from QrScanner class
         SharedPreferences sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         Username_home2 = sharedPreferences.getString("Username_login_Est","");
@@ -78,7 +80,32 @@ public class home2 extends AppCompatActivity {
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
-                Toast.makeText(home2.this, httpResponseMsg, Toast.LENGTH_SHORT).show();
+
+                try {
+                    JSONArray jsonArray = new JSONArray(httpResponseMsg);
+                    //loop to get all the records
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Log.i(home2.class.getName(), jsonObject.getString("firstname"));
+                        Log.i(home2.class.getName(), jsonObject.getString("middlename"));
+                        Log.i(home2.class.getName(), jsonObject.getString("lastname"));
+                        Log.i(home2.class.getName(), jsonObject.getString("contactnumber"));
+                        Log.i(home2.class.getName(), jsonObject.getString("temperature"));
+                        Log.i(home2.class.getName(), jsonObject.getString("date_time"));
+                        Log.i(home2.class.getName(), jsonObject.getString("address"));
+                        //store the data
+                        firstname= jsonObject.getString("firstname");
+                        middlename= jsonObject.getString("middlename");
+                        lastname= jsonObject.getString("lastname");
+                        name.setText("Name: "+lastname+", "+firstname+", "+middlename);
+                    }
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 
