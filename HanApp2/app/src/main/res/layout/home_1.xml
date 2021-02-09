@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="10dp"
+    android:background="@drawable/mainbackground"
+tools:context=".home1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/add_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end|bottom"
+    android:layout_margin="16dp"
+    android:layout_marginEnd="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginBottom="30dp"
+    android:src="@drawable/ic_addbtn"
+        android:backgroundTint="#1F73FF"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:ignore="MissingConstraints" />
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/qrscanner"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:visibility="invisible"
+    android:layout_marginBottom="18dp"
+    android:backgroundTint="#2B7BFF"
+    android:src="@drawable/ic_qrscanner"
+    app:layout_constraintBottom_toTopOf="@+id/add_btn"
+    app:layout_constraintEnd_toEndOf="@+id/add_btn"
+    tools:ignore="MissingConstraints" />
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:id="@+id/counter"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:backgroundTint="#3681FF"
+    android:focusable="true"
+    android:visibility="invisible"
+    android:layout_marginBottom="18dp"
+    android:src="@drawable/ic_counter"
+    app:layout_constraintBottom_toTopOf="@+id/qrscanner"
+    app:layout_constraintEnd_toEndOf="@+id/add_btn"
+    tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>

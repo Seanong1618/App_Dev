@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/mainbackground"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    tools:context=".signup_page">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/establishment"
+        android:text="SIGNUP FOR ESTABLISHMENT"
+        android:textSize="20dp"
+        android:textColor="#004850"
+        android:background="@drawable/signupbutton"
+        android:padding="20dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/customer"
+        android:text="SIGNUP FOR CUSTOMER"
+        android:background="@drawable/signupbutton"
+        android:textSize="20dp"
+        android:textColor="#004850"
+        android:padding="20dp"
+        />
+
+</LinearLayout>

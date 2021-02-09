@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="30dp"
+	android:background="#EFEFEF">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="PAPA"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="09164228610"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:text="MAMA"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="09468335642"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:text="MAMI KIM"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="09222451784"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:text="JONATHAN"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="09637891751"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:text="JHUNA"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="09648928642"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textSize="20sp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginLeft="5dp">
+
+		<ImageView
+			android:onClick="papa"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_1"
+			android:padding="5dp"/>
+
+		<ImageView
+			android:onClick="mama"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_1"
+			android:padding="5dp"
+			android:layout_marginTop="13dp"/>
+
+		<ImageView
+			android:onClick="kim"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_1"
+			android:padding="5dp"
+			android:layout_marginTop="15dp"/>
+
+		<ImageView
+			android:onClick="jonathan"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_1"
+			android:padding="5dp"
+			android:layout_marginTop="13dp"/>
+
+		<ImageView
+			android:onClick="jhuna"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_1"
+			android:padding="5dp"
+			android:layout_marginTop="12dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<ImageView
+			android:onClick="pa"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_2"
+			android:padding="5dp"
+			android:layout_marginLeft="15dp"/>
+
+		<ImageView
+			android:onClick="ma"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_2"
+			android:padding="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="15dp"/>
+
+		<ImageView
+			android:onClick="ki"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_2"
+			android:padding="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="13dp"/>
+
+		<ImageView
+			android:onClick="jo"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_2"
+			android:padding="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="13dp"/>
+
+		<ImageView
+			android:onClick="jh"
+			android:layout_width="45dp"
+			android:layout_height="50dp"
+			android:src="@drawable/image_2"
+			android:padding="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="12dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+
