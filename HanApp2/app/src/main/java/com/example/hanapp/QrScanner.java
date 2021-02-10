@@ -69,7 +69,7 @@ public class QrScanner extends AppCompatActivity {
                 //if the Data from qr code and temp is empty
                 if (temp_holder.isEmpty() || Data.isEmpty()){
                     Toast.makeText(QrScanner.this, "Please Check Empty Fields...", Toast.LENGTH_SHORT).show();
-                }else if (temp_holder.length()<=1 || temp_holder.length()>=4){
+                }else if (temp_holder.length()<=1 || temp_holder.length()>=5){
                     Toast.makeText(QrScanner.this, "Invalid Temperature Please try again...", Toast.LENGTH_SHORT).show();
                 } else{
                     temp_holder =temp.getText().toString().trim();
