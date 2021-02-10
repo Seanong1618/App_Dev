@@ -25,6 +25,7 @@ public class Register extends AppCompatActivity {
             ,address="",contactnumber="",sex="",age="";
     EditText signup_username, signup_password,signup_confirmpassword,signup_firtname,signup_middlename,
             signup_lastname,signup_address,signup_contactnumber,signup_sex,signup_age;
+
     String finalResult ;
     String HttpURL = "http://hanapp2021.000webhostapp.com/customer_signup.php";
     ProgressDialog progressDialog;
@@ -74,6 +75,12 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Check Empty Fields...", Toast.LENGTH_SHORT).show();
                     Toast.makeText(Register.this, "Please Try Again...", Toast.LENGTH_SHORT).show();
 
+                }else if (contactnumber.length() < 11){
+                    Toast.makeText(Register.this, "Contact Number is Invalid, Make it 11 DIGITS", Toast.LENGTH_SHORT).show();
+                }else if (sex.length()>=2){
+                    Toast.makeText(Register.this, "Sex is Invalid, Make it M or F", Toast.LENGTH_SHORT).show();
+                }else if (age.length()<1 || age.length()>3){
+                    Toast.makeText(Register.this, "Your Age is prohibited to sign up on this application.", Toast.LENGTH_SHORT).show();
                 }else{
                     if (password.equals(confirmpassword)){
                         //your code here to pass the value
@@ -86,7 +93,7 @@ public class Register extends AppCompatActivity {
                         address = signup_address.getText().toString().toUpperCase();
                         contactnumber = signup_contactnumber.getText().toString();
                         sex = signup_sex.getText().toString().toUpperCase();
-                        age = signup_age.getText().toString();
+                        age = signup_age.getText().toString().trim();
 
                         UserRegisterFunction(username,password,firstname,middlename,lastname,address,contactnumber,sex,age);
 

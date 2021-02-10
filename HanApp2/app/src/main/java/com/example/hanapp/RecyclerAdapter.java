@@ -33,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             name = itemView.findViewById(R.id.name);
             contact = itemView.findViewById(R.id.contact);
-            temperature = itemView.findViewById(R.id.temp);
+            temperature = itemView.findViewById(R.id.temperature);
             address = itemView.findViewById(R.id.address);
             datetime = itemView.findViewById(R.id.datetime);
         }
@@ -47,8 +47,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             default:
 
-                View layoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
-                        R.layout.list_item, viewGroup, false);
+                View layoutView;
+                layoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
+                        R.layout.list_item, viewGroup);
                 return new ItemViewHolder((layoutView));
         }
     }

@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -39,21 +40,20 @@ public class home2 extends AppCompatActivity {
     HttpParse httpParse = new HttpParse();
     String finalResult ;
     Button show;
-    String httprespose;
-
+    String name,contact,temperature,address,datetime;
     //for storage
-    private RecyclerView mRecyclerView;
-    private List<Object> viewItems = new ArrayList<>();
-
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    public static final String TAG = "MainActivity";
+    public RecyclerView mRecyclerView;
+    public List<Object> viewItems = new ArrayList<>();
+    public RecyclerView.Adapter mAdapter;
+    public RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
         //for storage section
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -80,7 +80,6 @@ public class home2 extends AppCompatActivity {
                     Toast.makeText(home2.this, "Empty...", Toast.LENGTH_SHORT).show();
                 }else{
                     UserRegisterFunction(Username_home2,Password_home2);
-
                 }
             }
         });
@@ -102,10 +101,10 @@ public class home2 extends AppCompatActivity {
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
-                httprespose = httpResponseMsg;
+
                 //parsing
                 try {
-                    JSONArray jsonArray = new JSONArray(httprespose);
+                    JSONArray jsonArray = new JSONArray(httpResponseMsg);
                     //loop to get all the records
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -122,14 +121,13 @@ public class home2 extends AppCompatActivity {
                         String temperature = jsonObject.getString("temperature");
                         String address = jsonObject.getString("address");
                         String datetime = jsonObject.getString("date_time");
-
+                        //put it in the customer details
                         customer_details customer_details = new customer_details(name,contact,temperature,address,datetime);
                         viewItems.add(customer_details);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (JSONException e) {
+                   Log.d(TAG, "addItemsFromJSON: ", e);
                 }
-
             }
 
             @Override
