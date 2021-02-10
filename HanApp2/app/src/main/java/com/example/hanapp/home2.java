@@ -2,6 +2,8 @@ package com.example.hanapp;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -25,7 +27,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class home2 extends AppCompatActivity {
     String Username_home2= "", Password_home2 = "";
@@ -34,18 +38,35 @@ public class home2 extends AppCompatActivity {
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String finalResult ;
-    String firstname,middlename,lastname,contactnumber,temp,date_time;
-    TextView name;
     Button show;
+    String httprespose;
+
+    //for storage
+    private RecyclerView mRecyclerView;
+    private List<Object> viewItems = new ArrayList<>();
+
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
+        //for storage section
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new RecyclerAdapter(this, viewItems);
+        mRecyclerView.setAdapter(mAdapter);
+        //-------------------//
         //Hide the Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Home");
-        name = findViewById(R.id.name);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         //from QrScanner class
         SharedPreferences sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         Username_home2 = sharedPreferences.getString("Username_login_Est","");
@@ -59,6 +80,7 @@ public class home2 extends AppCompatActivity {
                     Toast.makeText(home2.this, "Empty...", Toast.LENGTH_SHORT).show();
                 }else{
                     UserRegisterFunction(Username_home2,Password_home2);
+
                 }
             }
         });
@@ -80,9 +102,10 @@ public class home2 extends AppCompatActivity {
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
-
+                httprespose = httpResponseMsg;
+                //parsing
                 try {
-                    JSONArray jsonArray = new JSONArray(httpResponseMsg);
+                    JSONArray jsonArray = new JSONArray(httprespose);
                     //loop to get all the records
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -94,15 +117,15 @@ public class home2 extends AppCompatActivity {
                         Log.i(home2.class.getName(), jsonObject.getString("date_time"));
                         Log.i(home2.class.getName(), jsonObject.getString("address"));
                         //store the data
-                        firstname= jsonObject.getString("firstname");
-                        middlename= jsonObject.getString("middlename");
-                        lastname= jsonObject.getString("lastname");
-                        name.setText("Name: "+lastname+", "+firstname+", "+middlename);
+                        String name = jsonObject.getString("lastname")+", "+jsonObject.getString("firstname")+", "+jsonObject.getString("middlename");
+                        String contact = jsonObject.getString("contactnumber");
+                        String temperature = jsonObject.getString("temperature");
+                        String address = jsonObject.getString("address");
+                        String datetime = jsonObject.getString("date_time");
+
+                        customer_details customer_details = new customer_details(name,contact,temperature,address,datetime);
+                        viewItems.add(customer_details);
                     }
-
-
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

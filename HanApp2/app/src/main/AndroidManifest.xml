@@ -9,10 +9,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.AUTO_FOCUS" />
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -24,7 +22,8 @@
         android:theme="@style/Theme.HanApp"
         android:usesCleartextTraffic="true">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".home2" />
+        <activity android:name=".home2"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".Register2"
             android:parentActivityName=".signup_page"/>
         <activity

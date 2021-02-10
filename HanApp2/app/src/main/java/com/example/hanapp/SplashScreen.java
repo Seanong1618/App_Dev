@@ -28,21 +28,21 @@ public class SplashScreen extends AwesomeSplash {
         actionBar.hide();
 
         //Customize Circular Reveal
-        configSplash.setBackgroundColor(R.color.design_default_color_primary); //any color you want form colors.xml
-        configSplash.setAnimCircularRevealDuration(2000); //int ms
+        configSplash.setBackgroundColor(R.color.blue); //any color you want form colors.xml
+        configSplash.setAnimCircularRevealDuration(1400); //int ms
         configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
         configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM); //or Flags.REVEAL_TOP
 
         //Customize Logo
         configSplash.setLogoSplash(R.drawable.applogo); //or any other drawable
-        configSplash.setAnimLogoSplashDuration(2000); //int ms
-        configSplash.setAnimLogoSplashTechnique(Techniques.Bounce);
+        configSplash.setAnimLogoSplashDuration(1600); //int ms
+        configSplash.setAnimLogoSplashTechnique(Techniques.Landing);
 
         //Customize Title
         configSplash.setTitleSplash("Welcome to COVID-19 HanApp");
         configSplash.setTitleTextSize(25f); //float value
-        configSplash.setAnimTitleDuration(3000);
-        configSplash.setAnimTitleTechnique(Techniques.FlipInX);
+        configSplash.setAnimTitleDuration(2000);
+        configSplash.setAnimTitleTechnique(Techniques.FadeInLeft);
 
     }
 

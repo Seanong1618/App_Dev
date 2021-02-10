@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mainbackground"
     android:orientation="vertical"
-    android:padding="17dp"
+    android:padding="20dp"
     tools:context=".home2">
     <Button
         android:id="@+id/show"
@@ -20,13 +20,14 @@
         android:layout_marginBottom="15dp"
         />
 
-   <TextView
-       android:id="@+id/name"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:textColor="@color/black"
-       android:textSize="20dp"
-       android:layout_marginTop="10dp"
-       />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item"
+        android:scrollbars="vertical"
+
+        />
+
 
 </LinearLayout>

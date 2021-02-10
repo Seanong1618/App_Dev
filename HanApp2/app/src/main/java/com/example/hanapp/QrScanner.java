@@ -66,10 +66,14 @@ public class QrScanner extends AppCompatActivity {
             public void onClick(View v) {
                 //if the submit button was click
                 temp_holder = temp.getText().toString().trim();
+                //parse the string into Int for validation
+                float temperature = Float.parseFloat(temp_holder);
                 //if the Data from qr code and temp is empty
                 if (temp_holder.isEmpty() || Data.isEmpty()){
                     Toast.makeText(QrScanner.this, "Please Check Empty Fields...", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if (temperature>=38 || temperature<=33 || temp_holder.length()<=1){
+                    Toast.makeText(QrScanner.this, "Invalid Temperature Please try again...", Toast.LENGTH_SHORT).show();
+                } else{
                     temp_holder =temp.getText().toString().trim();
                     //values will pass to the function
                     UserRegisterFunction(temp_holder,Data,Username_home1,Password_home1);

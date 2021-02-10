@@ -44,5 +44,9 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
     implementation 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
 
+    //for the cardview and recycler view
+    implementation 'com.android.support:cardview-v7:30.0.0'
+    implementation 'com.android.support:recyclerview-v7:30.0.0'
+
 
 }
