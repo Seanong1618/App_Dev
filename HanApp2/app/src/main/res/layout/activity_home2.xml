@@ -9,25 +9,24 @@
     android:padding="20dp"
     tools:context=".home2">
 
-    <Button
-        android:id="@+id/show"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/loginbutton"
-        android:text="Show Information"
-        android:textColor="@color/white"
-        android:textSize="20dp"
+        android:text="LIST OF PEOPLE WHO ENTERED"
+        android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:textColor="@color/white"
         />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/list_item"
         android:scrollbars="vertical"
-        />
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

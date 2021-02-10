@@ -39,29 +39,17 @@ public class home2 extends AppCompatActivity {
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String finalResult ;
-    Button show;
-    String name,contact,temperature,address,datetime;
     //for storage
-    public static final String TAG = "MainActivity";
-    public RecyclerView mRecyclerView;
-    public List<Object> viewItems = new ArrayList<>();
-    public RecyclerView.Adapter mAdapter;
-    public RecyclerView.LayoutManager layoutManager;
-
+    RecyclerView recyclerView;
+    List<customer_details> customerDetails;
+    Adapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
         //for storage section
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-
-        mRecyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new RecyclerAdapter(this, viewItems);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView = findViewById(R.id.recycler);
+        customerDetails = new ArrayList<>();
         //-------------------//
         //Hide the Action Bar
         ActionBar actionBar = getSupportActionBar();
@@ -71,24 +59,15 @@ public class home2 extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         Username_home2 = sharedPreferences.getString("Username_login_Est","");
         Password_home2 = sharedPreferences.getString("Password_login_Est","");
-        //pass the value to the function
-        show = findViewById(R.id.show);
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Username_home2.isEmpty() || Password_home2.isEmpty()){
-                    Toast.makeText(home2.this, "Empty...", Toast.LENGTH_SHORT).show();
-                }else{
-                    UserRegisterFunction(Username_home2,Password_home2);
-                }
-            }
-        });
+
+        UserRegisterFunction(Username_home2,Password_home2);
+
 
     }
 
-    public void UserRegisterFunction(final String Username_home2, final String Password_home2){
+    public void UserRegisterFunction(final String Username_home2, final String Password_home2) {
 
-        class UserRegisterFunctionClass extends AsyncTask<String,Void,String> {
+        class UserRegisterFunctionClass extends AsyncTask<String, Void, String> {
 
             @Override
             protected void onPreExecute() {
@@ -115,26 +94,32 @@ public class home2 extends AppCompatActivity {
                         Log.i(home2.class.getName(), jsonObject.getString("temperature"));
                         Log.i(home2.class.getName(), jsonObject.getString("date_time"));
                         Log.i(home2.class.getName(), jsonObject.getString("address"));
-                        //store the data
-                        String name = jsonObject.getString("lastname")+", "+jsonObject.getString("firstname")+", "+jsonObject.getString("middlename");
-                        String contact = jsonObject.getString("contactnumber");
-                        String temperature = jsonObject.getString("temperature");
-                        String address = jsonObject.getString("address");
-                        String datetime = jsonObject.getString("date_time");
                         //put it in the customer details
-                        customer_details customer_details = new customer_details(name,contact,temperature,address,datetime);
-                        viewItems.add(customer_details);
+                        customer_details customerDetails1 = new customer_details();
+                        customerDetails1.setName("Name: "+jsonObject.getString("lastname").toString()+", "+jsonObject.getString("firstname")+", "+jsonObject.getString("middlename"));
+                        customerDetails1.setContact("Contact #: "+jsonObject.getString("contactnumber"));
+                        customerDetails1.setTemperature("Temperature: "+jsonObject.getString("temperature"));
+                        customerDetails1.setAddress("Address: "+jsonObject.getString("address"));
+                        customerDetails1.setDatetime("Date_Time of Entry: "+jsonObject.getString("date_time"));
+
+                        customerDetails.add(customerDetails1);
+
                     }
                 } catch (JSONException e) {
-                   Log.d(TAG, "addItemsFromJSON: ", e);
+                    Log.d("addItemsFromJSON: ", String.valueOf(e));
                 }
+                adapter = new Adapter(getApplication(),customerDetails);
+                LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
             protected String doInBackground(String... params) {
 
-                hashMap.put("username",params[0]);
-                hashMap.put("password",params[1]);
+                hashMap.put("username", params[0]);
+                hashMap.put("password", params[1]);
 
 
                 finalResult = httpParse.postRequest(hashMap, HttpURL);
@@ -145,7 +130,8 @@ public class home2 extends AppCompatActivity {
 
         UserRegisterFunctionClass userRegisterFunctionClass = new UserRegisterFunctionClass();
 
-        userRegisterFunctionClass.execute(Username_home2,Password_home2);
+        userRegisterFunctionClass.execute(Username_home2, Password_home2);
+
     }
 
 }

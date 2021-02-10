@@ -1,38 +1,60 @@
 package com.example.hanapp;
 
 public class customer_details {
-    private final String name;
-    private final String contact;
-    private final String temperature;
-    private final String address;
-    private final String datetime;
 
-    //constructor
-    public customer_details(String name, String contact, String temperature, String address, String datetime) {
-        this.name = name;
-        this.contact = contact;
-        this.temperature = temperature;
-        this.address = address;
-        this.datetime = datetime;
+    private  String name;
+    private  String contact;
+    private  String temperature;
+    private  String address;
+    private  String datetime;
+
+    public customer_details() {
+        this.name = this.name;
+        this.contact = this.contact;
+        this.temperature = this.temperature;
+        this.address = this.address;
+        this.datetime = this.datetime;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getContact() {
         return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getTemperature() {
         return temperature;
     }
 
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
     public String getAddress() {
         return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDatetime() {
         return datetime;
     }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
 }
+
+
