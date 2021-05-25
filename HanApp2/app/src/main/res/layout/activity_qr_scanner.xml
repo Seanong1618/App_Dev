@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,22 +7,23 @@
     android:padding="10dp"
     tools:context=".QrScanner">
     <TextView
+        android:id="@+id/data"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Name :"
-        android:padding="10dp"
+        android:layout_height="45dp"
+        android:text="Id :"
         android:textSize="25dp"
-        android:textColor="@color/white"
-        android:id="@+id/data_text"
+        android:padding="5dp"
+        android:background="@drawable/databackground"
+        android:textColor="@color/black"
         />
     <Button
         android:id="@+id/button_scan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/loginbutton"
-        android:layout_below="@+id/data_text"
         android:text="SCAN QR CODE"
         android:textSize="20dp"
+        android:layout_marginTop="60dp"
         android:textAlignment="center"
         android:textColor="#fff"
         />
@@ -35,12 +35,11 @@
         android:orientation="vertical"
         android:padding="60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Temperature"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
+      <ImageView
+          android:layout_width="400dp"
+          android:layout_height="55dp"
+          android:src="@drawable/temp"
+          />
 
         <EditText
             android:id="@+id/temp"
@@ -48,7 +47,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/input"
-            android:hint="Enter your Temperature in degree celcius"
+            android:hint="Example: 36.5"
             android:inputType="numberDecimal"
             android:padding="20dp"
             android:textAlignment="center"

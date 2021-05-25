@@ -64,9 +64,8 @@ public class QrScanner extends AppCompatActivity {
         Password_home1 = sharedPreferences.getString("Password_login","");
         temp = findViewById(R.id.temp);
         temp_holder = temp.getText().toString().trim();
-        textView = findViewById(R.id.data_text);
         submit = findViewById(R.id.submit);
-
+        textView = findViewById(R.id.data);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,16 +73,15 @@ public class QrScanner extends AppCompatActivity {
                 temp_holder = temp.getText().toString().trim();
                 temperature = Float.parseFloat(temp_holder.trim());
                 //if the Data from qr code and temp is empty
-                if (temperature == null || Data.isEmpty()){
-                    Toast.makeText(QrScanner.this, "Please Check Empty Fields...", Toast.LENGTH_SHORT).show();
-                }else if (temp_holder.length()<=1 || temp_holder.length()>=5){
+                if (temp_holder.length() <= 1 || temp_holder.length() >= 5){
                     Toast.makeText(QrScanner.this, "Invalid Temperature Please try again...", Toast.LENGTH_SHORT).show();
                 }else if (temperature >= 37.6){
                     Toast.makeText(QrScanner.this, "In compliance with the existing Protocol your temperature is too high...", Toast.LENGTH_LONG).show();
                 }else if (temperature <= 35){
                     Toast.makeText(QrScanner.this, "Your Temperature is LOW...", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                }else if (temp_holder.equals("") && Data.equals("")){
+
+                } else{
                     temp_holder = temp.getText().toString().trim();
                     //values will pass to the function
                     SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -170,8 +168,7 @@ public class QrScanner extends AppCompatActivity {
             }
             else {
                 Data = result.getContents();
-                textView.setText("Name :"+result.getContents());
-
+                textView.setText(Data);
             }
         }
         else {
