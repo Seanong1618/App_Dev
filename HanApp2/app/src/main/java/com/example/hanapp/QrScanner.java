@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,19 +28,26 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.qrcode.encoder.QRCode;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
 public class QrScanner extends AppCompatActivity {
     EditText temp;
     String temp_holder = "", Data = "";
-    String Username_home1 = "" , Password_home1 = "";
+    Float temperature;
+    String Username_home1 = "" , Password_home1 = "",json_data = "";
 
     ProgressDialog progressDialog;
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
     String finalResult ;
-    String HttpURL = "http://hanapp2021.000webhostapp.com/Entry_details.php";
+    String HttpURL = "http://hanapp2021.000webhostapp.com/Confirmation.php";
+
     Button scan_button,submit;
     TextView textView;
     private static final int CAMERA_PERMISSION_CODE=101;
@@ -49,13 +57,11 @@ public class QrScanner extends AppCompatActivity {
         setContentView(R.layout.activity_qr_scanner);
         //action button
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Scan QR Code");
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        //from home1 class
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        Username_home1 = sharedPreferences.getString("Username_home1","");
-        Password_home1 = sharedPreferences.getString("Password_home1","");
+        actionBar.hide();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPref", MODE_PRIVATE);
+        Username_home1 = sharedPreferences.getString("Username_login","");
+        Password_home1 = sharedPreferences.getString("Password_login","");
         temp = findViewById(R.id.temp);
         temp_holder = temp.getText().toString().trim();
         textView = findViewById(R.id.data_text);
@@ -66,15 +72,28 @@ public class QrScanner extends AppCompatActivity {
             public void onClick(View v) {
                 //if the submit button was click
                 temp_holder = temp.getText().toString().trim();
+                temperature = Float.parseFloat(temp_holder.trim());
                 //if the Data from qr code and temp is empty
-                if (temp_holder.isEmpty() || Data.isEmpty()){
+                if (temperature == null || Data.isEmpty()){
                     Toast.makeText(QrScanner.this, "Please Check Empty Fields...", Toast.LENGTH_SHORT).show();
                 }else if (temp_holder.length()<=1 || temp_holder.length()>=5){
                     Toast.makeText(QrScanner.this, "Invalid Temperature Please try again...", Toast.LENGTH_SHORT).show();
-                } else{
-                    temp_holder =temp.getText().toString().trim();
+                }else if (temperature >= 37.6){
+                    Toast.makeText(QrScanner.this, "In compliance with the existing Protocol your temperature is too high...", Toast.LENGTH_LONG).show();
+                }else if (temperature <= 35){
+                    Toast.makeText(QrScanner.this, "Your Temperature is LOW...", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    temp_holder = temp.getText().toString().trim();
                     //values will pass to the function
-                    UserRegisterFunction(temp_holder,Data,Username_home1,Password_home1);
+                    SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("Username", Username_home1);
+                    editor.putString("Password", Password_home1);
+                    editor.putString("Data", Data);
+                    editor.putString("Temperature", temp_holder);
+                    editor.apply();
+                    UserRegisterFunction(Data);
                 }
 
             }
@@ -97,7 +116,7 @@ public class QrScanner extends AppCompatActivity {
             }
         });
     }
-    public void UserRegisterFunction(final String temperature_holder, final String Data, final String Username_home1, final String Password_home1){
+    public void UserRegisterFunction(final String EstablishmentId){
 
         class UserRegisterFunctionClass extends AsyncTask<String,Void,String> {
 
@@ -105,7 +124,7 @@ public class QrScanner extends AppCompatActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
 
-                progressDialog = ProgressDialog.show(QrScanner.this, "Signing Up...", "Loading Please Wait");
+                progressDialog = ProgressDialog.show(QrScanner.this, "", "Loading Please Wait");
             }
 
             @Override
@@ -113,29 +132,16 @@ public class QrScanner extends AppCompatActivity {
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
 
-                if (httpResponseMsg.equalsIgnoreCase("Invalid Establishment ID")){
-
-                    Toast.makeText(QrScanner.this, "Invalid Establishment ID...", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(QrScanner.this, "Establishment ID is not Registered...", Toast.LENGTH_SHORT).show();
-
-                }else if (httpResponseMsg.equalsIgnoreCase("Data Insertion Success")){
-                    Intent intent = new Intent(getApplicationContext(), home1.class);
-                    startActivity(intent);
-                    Toast.makeText(QrScanner.this, "Successful Insertion...", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(QrScanner.this, "Data Insertion Error...", Toast.LENGTH_SHORT).show();
-                }
-
-
+                json_data = httpResponseMsg;
+                Intent intent = new Intent(getBaseContext(), Confirmation_QRCode.class);
+                intent.putExtra("json_parse", json_data);
+                startActivity(intent);
             }
 
             @Override
             protected String doInBackground(String... params) {
 
-                hashMap.put("temperature",params[0]);
-                hashMap.put("Data",params[1]);
-                hashMap.put("Username_home1",params[2]);
-                hashMap.put("Password_home1",params[3]);
+                hashMap.put("estID",params[0]);
 
 
 
@@ -147,7 +153,7 @@ public class QrScanner extends AppCompatActivity {
 
         UserRegisterFunctionClass userRegisterFunctionClass = new UserRegisterFunctionClass();
 
-        userRegisterFunctionClass.execute(temperature_holder,Data,Username_home1,Password_home1);
+        userRegisterFunctionClass.execute(EstablishmentId);
     }
 
     public void openScanner(){
@@ -160,15 +166,16 @@ public class QrScanner extends AppCompatActivity {
         IntentResult result =IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result!=null){
             if (result.getContents()==null){
-                Toast.makeText(this,"Blank",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"No Data...Try Again",Toast.LENGTH_SHORT).show();
             }
             else {
                 Data = result.getContents();
-                textView.setText("Data :"+result.getContents());
+                textView.setText("Name :"+result.getContents());
+
             }
         }
         else {
-            Toast.makeText(this,"Blank",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No Data...Try Again",Toast.LENGTH_SHORT).show();
         }
     }
 

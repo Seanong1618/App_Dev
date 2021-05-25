@@ -9,9 +9,11 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.AUTO_FOCUS" />
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET" ></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,22 +23,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HanApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".home2"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".Register2"
-            android:parentActivityName=".signup_page"/>
+        <activity android:name=".activity_info"></activity>
+        <activity android:name=".MainActivity" />
         <activity
-            android:name=".signup_page"
+            android:name=".Homepage"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Register"
-            android:parentActivityName=".signup_page" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".QrScanner"
-            android:parentActivityName=".home1" />
-        <activity android:name=".counterActivity" />
-        <activity android:name=".home1" />
+            android:parentActivityName=".Homepage" />
+        <activity
+            android:name=".Confirmation_QRCode"
+            android:parentActivityName=".QrScanner" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

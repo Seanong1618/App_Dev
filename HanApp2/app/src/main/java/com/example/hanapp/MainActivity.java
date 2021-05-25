@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,21 +46,21 @@ public class MainActivity extends AppCompatActivity {
         Username = findViewById(R.id.login_username);
         Password = findViewById(R.id.login_password);
         log_button = findViewById(R.id.log_button);
+
         //if the login button was click
         log_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 CheckEditTextIsEmptyOrNot();
 
                 if(CheckEditText){
 
-                    UserLoginFunction(UsernameHolder, PasswordHolder);
+                  UserLoginFunction(UsernameHolder, PasswordHolder);
 
                 }
                 else {
-
-                    Toast.makeText(MainActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(MainActivity.this, "Please fill all form fields.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -104,30 +102,25 @@ public class MainActivity extends AppCompatActivity {
                 String httpmessage = httpResponseMsg.trim();
 
                 if(httpmessage.equals("Customer")){
+
                     SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("Username_login", UsernameHolder);
                     editor.putString("Password_login", PasswordHolder);
                     editor.apply();
 
-                    Intent intent = new Intent(getApplicationContext(), home1.class);
+                    Intent intent = new Intent(getApplicationContext(), Homepage.class);
                     startActivity(intent);
 
                     Toast.makeText(getApplicationContext(),"Congatulations you are already logged in...",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),"as a Customer...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"as "+ UsernameHolder + "...",Toast.LENGTH_SHORT).show();
 
 
-                } else if (httpmessage.equals("Establishment")){
-                    SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("Username_login_Est", UsernameHolder);
-                    editor.putString("Password_login_Est", PasswordHolder);
-                    editor.apply();
-                    Intent intent = new Intent(getApplicationContext(),home2.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(),"Congatulations you are already logged in...",Toast.LENGTH_SHORT).show();
-                }else{
+                }else if (httpmessage.equals("Establishment")){
 
+                    Toast.makeText(MainActivity.this,"Invalid Username or Passwrod",Toast.LENGTH_LONG).show();
+
+                }else {
                     Toast.makeText(MainActivity.this,httpmessage,Toast.LENGTH_LONG).show();
                 }
 
@@ -153,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
     //clickable textview for signup page
     public void signup (View view){
-        Intent intent = new Intent(getApplicationContext(),signup_page.class);
+        Intent intent = new Intent(getApplicationContext(),Register.class);
         startActivity(intent);
     }
 }
