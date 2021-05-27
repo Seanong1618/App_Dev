@@ -10,7 +10,7 @@
         android:id="@+id/data"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="Id :"
+        android:text="Name : "
         android:textSize="25dp"
         android:padding="5dp"
         android:background="@drawable/databackground"

@@ -131,7 +131,19 @@ public class QrScanner extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 json_data = httpResponseMsg;
-                Intent intent = new Intent(getBaseContext(), Confirmation_QRCode.class);
+                try {
+                    JSONArray jsonArray = new JSONArray(json_data);
+                    //loop to get all the records
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String EstName = jsonObject.getString("EstablishmentName");
+                        textView.setText("Name : "+EstName);
+                    }
+                } catch (JSONException e) {
+                    Log.d("addItemsFromJSON: ", String.valueOf(e));
+                }
+                //intent to confirmmation page
+                Intent intent = new Intent(getApplicationContext(), Confirmation_QRCode.class);
                 intent.putExtra("json_parse", json_data);
                 startActivity(intent);
             }
@@ -140,8 +152,6 @@ public class QrScanner extends AppCompatActivity {
             protected String doInBackground(String... params) {
 
                 hashMap.put("estID",params[0]);
-
-
 
                 finalResult = httpParse.postRequest(hashMap, HttpURL);
 
