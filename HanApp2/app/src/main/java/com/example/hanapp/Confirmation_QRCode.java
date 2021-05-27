@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class Confirmation_QRCode extends AppCompatActivity {
     String temp_holder = "", Data = "";
     String Username_home1 = "" , Password_home1 = "";
-    String json_data = "";
+    String sessionId = "";
     ProgressDialog progressDialog;
     HashMap<String,String> hashMap = new HashMap<>();
     HttpParse httpParse = new HttpParse();
@@ -56,7 +56,8 @@ public class Confirmation_QRCode extends AppCompatActivity {
         temp_holder = sharedPreferences.getString("Temperature", "");
         //set all the data into the tectview
         //parsing
-        String sessionId = getIntent().getStringExtra("json_parse");
+
+        sessionId = sharedPreferences.getString("json_parse", "");
         try {
             JSONArray jsonArray = new JSONArray(sessionId);
             //loop to get all the records

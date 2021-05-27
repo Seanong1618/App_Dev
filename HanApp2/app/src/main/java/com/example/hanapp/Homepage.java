@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,14 +55,8 @@ public class Homepage extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+    //to stay log in even the ap is closed
 
-    public void info(View view) {
-        // if the info icon was click
-        // Get the application context
-        Intent intent = new Intent(getApplicationContext(), activity_info.class);
-        startActivity(intent);
-
-    }
 }
 
 

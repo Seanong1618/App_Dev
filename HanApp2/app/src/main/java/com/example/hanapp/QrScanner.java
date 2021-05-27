@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -66,6 +67,7 @@ public class QrScanner extends AppCompatActivity {
         temp_holder = temp.getText().toString().trim();
         submit = findViewById(R.id.submit);
         textView = findViewById(R.id.data);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +93,10 @@ public class QrScanner extends AppCompatActivity {
                     editor.putString("Data", Data);
                     editor.putString("Temperature", temp_holder);
                     editor.apply();
+
                     UserRegisterFunction(Data);
+                    Intent intent = new Intent(getApplicationContext(), Confirmation_QRCode.class);
+                    startActivity(intent);
                 }
 
             }
@@ -125,27 +130,31 @@ public class QrScanner extends AppCompatActivity {
                 progressDialog = ProgressDialog.show(QrScanner.this, "", "Loading Please Wait");
             }
 
+
             @Override
             protected void onPostExecute(String httpResponseMsg) {
                 super.onPostExecute(httpResponseMsg);
                 progressDialog.dismiss();
 
                 json_data = httpResponseMsg;
+                //display in textview
                 try {
-                    JSONArray jsonArray = new JSONArray(json_data);
+                    JSONArray jsonArray = new JSONArray(httpResponseMsg);
                     //loop to get all the records
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String EstName = jsonObject.getString("EstablishmentName");
-                        textView.setText("Name : "+EstName);
+                        textView.setText("Name: "+EstName);
+
                     }
                 } catch (JSONException e) {
                     Log.d("addItemsFromJSON: ", String.valueOf(e));
                 }
-                //intent to confirmmation page
-                Intent intent = new Intent(getApplicationContext(), Confirmation_QRCode.class);
-                intent.putExtra("json_parse", json_data);
-                startActivity(intent);
+                //intent to confirmation page
+                SharedPreferences sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("json_parse", json_data);
+                editor.apply();
             }
 
             @Override
@@ -178,7 +187,7 @@ public class QrScanner extends AppCompatActivity {
             }
             else {
                 Data = result.getContents();
-                textView.setText(Data);
+                UserRegisterFunction(Data);
             }
         }
         else {

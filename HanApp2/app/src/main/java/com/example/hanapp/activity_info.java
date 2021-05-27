@@ -18,7 +18,7 @@ public class activity_info extends AppCompatActivity {
     }
     public void back (View view) {
         //go back to homeage
-        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 }

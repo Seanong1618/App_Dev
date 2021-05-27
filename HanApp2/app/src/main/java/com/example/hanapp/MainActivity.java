@@ -149,4 +149,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),Register.class);
         startActivity(intent);
     }
+    public void info(View view) {
+        // if the info icon was click
+        // Get the application context
+        Intent intent = new Intent(getApplicationContext(), activity_info.class);
+        startActivity(intent);
+
+    }
 }
